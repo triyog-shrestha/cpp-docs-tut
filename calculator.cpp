@@ -1,4 +1,7 @@
+#include <ios>
 #include <iostream>
+#include <limits>
+// #include <limits>
 using namespace std;
 
 
@@ -8,17 +11,22 @@ int mul(int a, int b);
 float quo(float a, float b);
 void intro();
 void options();
+void validateNums(int a);
 
 int main(){
     intro();
     while (true){
         int x,y,op;
         char ch;
-
+    
         cout<<"Enter a number : ";
-        cin >> x;
+        while(!(cin>>x)){
+            validateNums(y);
+        }
         cout<<"Enter another number : ";
-        cin>>y;
+        while(!(cin>>y)){
+            validateNums(y);
+        }
         options();
         cin >> op;
 
@@ -76,4 +84,10 @@ void options(){
     cout << "Press 2 for subtraction " << endl;
     cout << "Press 3 for multiplication " << endl;
     cout << "Press 4 for division " << endl;
+}
+
+void validateNums(int a){
+    cin.clear();
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cout<<"Invalid input, enter a proper number: ";
 }
