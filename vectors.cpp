@@ -43,4 +43,24 @@ int main(){
     for (auto itr = v2.begin(); itr!=v2.end(); ++itr ){
         cout<< *itr <<endl;
     };
+
+
+
+
+    //inserting and erasing elements in a vector
+    vector<int> v3 = {9,0,2,1,0};
+    v3.insert(v3.begin(), 1111);
+    v3.insert(v3.begin()+3,222222); //inserts at index 3
+    for (int i=0;i<v3.size();++i){
+         cout<<v3[i]<<'\t';
+    };
+    cout<<endl;
+
+    v3.erase(v3.begin());
+    for (auto itr=v3.begin();itr<v3.end();++itr){
+        cout << *itr << '\t';
+    };
+
+
+
 }
