@@ -26,14 +26,14 @@ void makeGrid(const vector<vector<int>>& board){
 }
 
 vector<Point> tetromino(){
-    vector<Point> o = {
+    vector<Point> i = {
         {1,1},
         {1,2},
         {2,1},
         {2,2}
     };
 
-    vector<Point> i = {
+    vector<Point> o = {
         {1,1},
         {2,1},
         {3,1},
