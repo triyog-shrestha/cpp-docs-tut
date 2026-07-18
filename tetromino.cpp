@@ -1,3 +1,4 @@
+#include <algorithm>
 #include <cstdlib>
 #include <iostream>
 using namespace std;
@@ -9,6 +10,42 @@ struct Point{
     int row,col;
 };
 
+
+//erase the previous point before moving down
+void erasePoint(vector<Point>& i, vector<vector<int>>& board){
+    for (Point& point : i){
+        board[point.row][point.col] = 0;
+    };
+}
+
+//move the tetromino points down
+void movePoint(vector<Point>& i){
+    for (Point& point : i){
+        point.row++;
+    };
+}
+
+//make the new point
+void makePoint(vector<Point>& i, vector<vector<int>>& board){
+    for (Point& point : i){
+        board[point.row][point.col] = 2;
+    };
+}
+
+
+//calculate the lowest point of the tetromino
+int calcLowest(const vector<Point>& i){
+
+    int lowest = i[0].row;
+    
+    for (Point p : i){
+        lowest = max(lowest, p.row);
+    };
+    return lowest;
+}
+
+
+//makes the tetris grid
 void makeGrid(const vector<vector<int>>& board){
     for (const auto& row:board){
         for (int tile:row){
@@ -25,6 +62,8 @@ void makeGrid(const vector<vector<int>>& board){
 
 }
 
+
+//makes the tetrominoes
 vector<Point> tetromino(){
     vector<Point> o = {
         {1,1},
@@ -39,7 +78,7 @@ vector<Point> tetromino(){
         {3,1},
         {4,1}
     };
-    return o;
+    return i;
 
 }
 
@@ -70,21 +109,21 @@ int main(){
     makeGrid(board);
 
     vector<Point> i = tetromino();
-    
-    while (i[3].row + 1 < board.size()-1) {
-        for (Point& point : i){ //erase point 
-            board[point.row][point.col] = 0; 
-        };
-        for (Point& point : i){
-            point.row++;
-        }; //make point
-        for (Point& point : i){
-            board[point.row][point.col] = 2; 
-        };
+
+  
+    int lowest = 0; 
+    while (lowest + 1 < board.size()-1) {
+        
+        erasePoint(i, board);
+
+        movePoint(i);
+
+        makePoint(i,board);
         system("clear");
         
         makeGrid(board);
         this_thread::sleep_for(chrono::milliseconds(500));
+        lowest = calcLowest(i);
     }
 
 }
